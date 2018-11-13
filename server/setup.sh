@@ -59,6 +59,7 @@ echo "ZEALOT: Running scripts to prepare system..."
 
 echo "ZEALOT: Populating web directory..."
 rm -r /var/www/html/*
+cp -r ./web/* /var/www/html
 
 echo "ZEALOT: Flushing and filling crontab..."
 
