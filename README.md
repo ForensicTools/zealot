@@ -13,6 +13,7 @@ zealot's server (serving as a DNS server, API, and artifact repository) is desig
 cd zealot/server
 bash setup.sh
 ```
+The setup script will install all dependencies, flush out any previous installations of zealot, configure the system and components for zealot use, and then reboot for sanity sake.
 
 ### Client
 
