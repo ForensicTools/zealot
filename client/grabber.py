@@ -1,15 +1,18 @@
-#import requests
+import time
+import datetime
+import requests
 
-# check flag status (WAIT/RUN)
-# r = requests.get('http://api.zealot/<endpoint_for_flag>/')
+# get flag status (WAIT/RUN)
+# response = requests.get('http://api.zealot/<endpoint_for_flag>/')
+response = "WAIT"
 
-if r == "RUN":
-    print "Flag set to: RUN"
-    # find all files changed in last x minutes
-    # grab files
-    
-elif r == "WAIT":
-    print "Flag set to: WAIT"
-    # check back later
-else:
-    print "Flag not found!"
+while response != "RUN":
+    print ("Flag is set to '%s' at: %s" % (response, datetime.datetime.now()))
+    time.sleep(5)
+    # response = requests.get('http://api.zealot/<endpoint_for_flag>/')
+    response = "RUN"
+
+print ("Flag set to '%s' at: %s" % (response, datetime.datetime.now()))
+# find all files changed in last x minutes
+# grab files
+
