@@ -56,6 +56,7 @@ mysql -u root -e "FLUSH PRIVILEGES"
 mysql -u root zealot < ./install/zealot.sql
 
 echo "ZEALOT: Running scripts to prepare system..."
+php ./tools/update-hosts.php
 
 echo "ZEALOT: Populating web directory..."
 rm -r /var/www/html/*
@@ -64,3 +65,4 @@ cp -r ./web/* /var/www/html
 echo "ZEALOT: Flushing and filling crontab..."
 
 echo "ZEALOT: Setup finished. Rebooting for sanity."
+reboot
