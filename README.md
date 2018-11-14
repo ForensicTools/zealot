@@ -8,9 +8,9 @@ The first network activity that many strains of malware make are DNS lookups to 
 
 ## Setup
 ### Server
-zealot's server (serving as a DNS server, API, and artifact repository) is designed to be lightweight enough to be run on a SBC such as a Raspberry Pi, or on a low-resource VM with 1 core/512MB RAM/at least 10GB storage. Your storage needs may vary greatly depending on retention of artifacts, alert frequency, etc. - so more is often recommended. When ready to install, clone the zealot repository to a Debian 9 server, then run the following commands as root:
+zealot's server (serving as a DNS server, API, and artifact repository) is designed to be lightweight enough to be run on a SBC such as a Raspberry Pi, or on a low-resource VM with 1 core/512MB RAM/at least 10GB storage. Your storage needs may vary greatly depending on retention of artifacts, alert frequency, etc. - so more is often recommended. When ready to install, clone the zealot repository to a Debian 9 server in the /root directory, then run the following commands as root:
 ```
-cd zealot/server
+cd /root/zealot/server
 bash setup.sh
 ```
 The setup script will install all dependencies, flush out any previous installations of zealot, configure the system and components for zealot use, and then reboot for sanity sake.
@@ -20,3 +20,6 @@ The setup script will install all dependencies, flush out any previous installat
 ## Operation
 
 ## Future Work
+
+## Security Warning
+Please note that good practices (not running composer as root, not running the zealot server as root, not running programs in the /root directory, etc.) are not being followed. In the tradeoff of secure, performant, and "done," we picked the latter two. Ironic that a security research group should be so full of bad practices, but for limited-scope prototypes with no live deployments we find this "acceptable." This serves as a warning to not run this anywhere near production, any instances started are your sole responsibility, and you should consider this entire repository to not just be exploitable but actively malicious. This is a prototype for research purposes only.
