@@ -35,7 +35,15 @@ echo "OK, ZEALOT SETTING UP"
 echo "ZEALOT: Updating repos and installing prerequisites..."
 apt-get update
 apt-get upgrade -y
-apt-get install -y dnsmasq git curl apache2 libapache2-mod-php mysql-server mysql-client php-mysql
+apt-get install -y dnsmasq git curl apache2 libapache2-mod-php mysql-server mysql-client php-mysql php-curl unzip
+
+echo "ZEALOT: Installing composer and PHP deps to zealot/server/bg..."
+cd bg # move into bg
+curl -sS https://getcomposer.org/installer | php
+php composer.phar require maxmind-db/reader:~1.0
+cd .. # move back
+
+# echo "ZEALOT: Building libmaxminddb" # consider for later if performance is inadequate
 
 echo "ZEALOT: Setting configuration files..."
 mkdir /etc/zealot
@@ -44,6 +52,7 @@ cp ./install/dnsmasq.conf /etc/dnsmasq.conf
 
 SQL_PASS=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 echo $SQL_PASS > /etc/zealot/sql
+echo "wrote /etc/zealot/sql"
 
 echo "ZEALOT: Setting up database..."
 mysql -u root -e "DROP DATABASE IF EXISTS zealot"
@@ -57,6 +66,7 @@ mysql -u root zealot < ./install/zealot.sql
 
 echo "ZEALOT: Running scripts to prepare system..."
 php ./tools/update-hosts.php
+# needs to grab database details and create config scripts
 
 echo "ZEALOT: Populating web directory..."
 rm -r /var/www/html/*
@@ -65,6 +75,7 @@ cp -r ./web/* /var/www/html
 echo "ZEALOT: Flushing and filling crontab..."
 crontab -r
 (crontab -u root -l ; echo "@reboot bash /root/zealot/server/bg/stream-read.sh &") | crontab -u root -
+(crontab -u root -l ; echo "5 2 * * * bash /root/zealot/server/tools/update-geoip.sh") | crontab -u root -
 
 echo "ZEALOT: Setup finished. Rebooting for sanity."
 #reboot

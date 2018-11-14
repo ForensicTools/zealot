@@ -1,0 +1,5 @@
+# composer related stuff
+composer.phar
+composer.json
+composer.lock
+vendor/
