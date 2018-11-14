@@ -75,7 +75,7 @@ cp -r ./web/* /var/www/html
 echo "ZEALOT: Flushing and filling crontab..."
 crontab -r
 (crontab -u root -l ; echo "@reboot bash /root/zealot/server/bg/stream-read.sh &") | crontab -u root -
-(crontab -u root -l ; echo "5 2 * * * bash /root/zealot/server/tools/update-geoip.sh") | crontab -u root -
+(crontab -u root -l ; echo "5 2 * * * bash /root/zealot/server/tools/update-geoip.sh > /dev/null 2>&1 &") | crontab -u root -
 
 echo "ZEALOT: Setup finished. Rebooting for sanity."
 #reboot
