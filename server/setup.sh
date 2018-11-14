@@ -5,7 +5,7 @@ echo "Authors: Chris Partridge, Geoff Kanteles"
 echo ""
 echo "This script should be run on a dedicated system (VM or SBC), Debian preferred."
 echo "The current IP of this machine must be, and is assumed to be, static."
-echo "Additionally, this script must be run as root."
+echo "Additionally, this script must be run as root, in the /root directory."
 echo "If any of the above is not true, please hit Ctrl+C now, fix, and rerun later."
 echo ""
 printf "You have 10s to cancel: "
@@ -63,6 +63,8 @@ rm -r /var/www/html/*
 cp -r ./web/* /var/www/html
 
 echo "ZEALOT: Flushing and filling crontab..."
+crontab -r
+(crontab -u root -l ; echo "@reboot bash /root/zealot/server/bg/stream-read.sh &") | crontab -u root -
 
 echo "ZEALOT: Setup finished. Rebooting for sanity."
-reboot
+#reboot
