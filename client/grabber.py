@@ -8,12 +8,11 @@ import requests
  
 # get flag status (WAIT/RUN)
 # response = requests.get('http://api.zealot/<endpoint_for_flag>/')
-response = "RUN" # WILL NOT BE PRESENT
+response = "WAIT" # WILL NOT BE PRESENT
 
 changedFiles = [] # list of file pathes changed in last x minutes
 path = os.path.dirname(os.path.realpath(__file__)) # get current path
-ree = (path + "/home") # to prevent including "~/current/path/home"
-
+noHome = (path + "/home") # to prevent including "~/current/path/home"
 
 while response != "RUN":
     print ("Flag is set to '%s'" % (response)) # debug print
@@ -30,7 +29,7 @@ print ("Flag is set to '%s'" % (response)) # debug print
 # print ("Flag set to '%s' at: %s" % (response, datetime.datetime.now()), file=open("zealotlog.txt", "a"))
 
 # create list of all files in directory
-lstFiles = glob.glob(path + '/*')
+lstFiles = glob.glob(path + '/*', recursive=True)
 
 #print (lstFiles) # DEBUG
 
@@ -40,14 +39,17 @@ lstFiles = glob.glob(path + '/*')
 for i in lstFiles:
     fileStat = os.stat(i)
     if (time.time() - fileStat.st_mtime < 300.00):
-        if (i is not ree):
+        if (i is not noHome):
             changedFiles.append(i)
 
 #print (changedFiles) # DEBUG
 
 # zip files together for transmission to server
-with zipfile.ZipFile('changedat:' + str(time.time()) + '.zip', 'w') as zipChanged:
+with zipfile.ZipFile('changed.zip', 'w') as zipChanged:
     for f in changedFiles: # not changedFiles, contents of files at pathes specified in changedFiles
         zipChanged.write(f)
 
 # send zip files to server
+#zipFile = {'file': open(path + '/changed.zip', 'rb')}
+#send = requests.post('http://api.zeal/<endpoint_for_receipt', files=zipFile)
+#send.text
