@@ -1,0 +1,8 @@
+# composer related stuff
+composer.phar
+composer.json
+composer.lock
+vendor/
+
+# don't save any downloaded DBs
+GeoLite*
