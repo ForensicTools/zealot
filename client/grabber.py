@@ -1,11 +1,19 @@
-from pathlib import Path
+import glob
+import os
+import zipfile
+import subprocess
 import time
 import datetime
 import requests
  
 # get flag status (WAIT/RUN)
 # response = requests.get('http://api.zealot/<endpoint_for_flag>/')
-response = "WAIT"
+response = "RUN" # WILL NOT BE PRESENT
+
+changedFiles = [] # list of file pathes changed in last x minutes
+path = os.path.dirname(os.path.realpath(__file__)) # get current path
+ree = (path + "/home") # to prevent including "~/current/path/home"
+
 
 while response != "RUN":
     print ("Flag is set to '%s'" % (response)) # debug print
@@ -17,8 +25,29 @@ while response != "RUN":
     response = "RUN"
 
 print ("Flag is set to '%s'" % (response)) # debug print
+
 # log flag state
 # print ("Flag set to '%s' at: %s" % (response, datetime.datetime.now()), file=open("zealotlog.txt", "a"))
 
-# find all files changed in last x minutes
-# grab files
+# create list of all files in directory
+lstFiles = glob.glob(path + '/*')
+
+#print (lstFiles) # DEBUG
+
+# iterate list of files, compare modify time to current time
+# if file was altered in last 5 minutes (300 seconds),
+# add it to changedFiles
+for i in lstFiles:
+    fileStat = os.stat(i)
+    if (time.time() - fileStat.st_mtime < 300.00):
+        if (i is not ree):
+            changedFiles.append(i)
+
+#print (changedFiles) # DEBUG
+
+# zip files together for transmission to server
+with zipfile.ZipFile('changedat:' + str(time.time()) + '.zip', 'w') as zipChanged:
+    for f in changedFiles: # not changedFiles, contents of files at pathes specified in changedFiles
+        zipChanged.write(f)
+
+# send zip files to server
