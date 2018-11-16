@@ -1,4 +1,5 @@
 #!/bin/bash
+cd /root/zealot/server/bg
 tail -n 0 -F /var/log/dnsmasq.log | \
 while read LINE
 do
