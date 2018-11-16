@@ -16,6 +16,7 @@ bash setup.sh
 The setup script will install all dependencies, flush out any previous installations of zealot, configure the system and components for zealot use, and then reboot for sanity sake.
 
 ### Client
+Once the server has been set up, to set up the client side portion of the tool, place the grabber.py script into the directory of your choice (the script will gather files for forensic analysis from the current directory and all sub-directories). To start the tool, run the script with Python 3.
 
 ## Operation
 
