@@ -3,6 +3,7 @@ A brief exploration into naive DNS examination using metadata, and forensic exam
 
 ## Authors
 Chris Partridge: cxp2269@rit.edu
+
 Geoff Kanteles: gdk7676@rit.edu
 
 ## Background
