@@ -1,5 +1,7 @@
-# zealot
-A brief exploration into naive DNS examination using metadata, and forensic examination thereafter.
+# Zealot
+A brief exploration into naive DNS examination using metadata, and forensic examination thereafter. Created by:
+Chris Partridge: cxp2269@rit.edu
+Geoff Kanteles: gdk7676@rit.edu
 
 ## Background
 DNS is an instrumental technology in almost all internet communications, and through DNS we can reveal important information about a host's network activity without intruding directly on that host's connections. This may allow us to make highly accurate decisions about the security of a given host in a resource- and cost-effective manner.
