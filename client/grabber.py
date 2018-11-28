@@ -14,7 +14,7 @@ changedFiles = [] # list of file pathes changed in last x minutes
 path = os.path.dirname(os.path.realpath(__file__)) # get current path
 noHome = (path + "/home") # to prevent including "~/current/path/home"
 
-while response != "RUN":
+while response.text != "RUN":
     print ("Flag is set to '%s'" % (response)) # debug print
     # log flag state
     # print ("Flag is set to '%s' at: %s" % (response, datetime.datetime.now()), file=open("zealotlog.txt", "a"))
@@ -22,8 +22,11 @@ while response != "RUN":
     time.sleep(5)   # wait x seconds
     response = requests.get('http://api.zealot/collect/') # query flag, update value
     # response = "RUN" # DEBUG
+    
 
-print ("Flag is set to '%s'" % (response)) # debug print
+print ("Flag is set to '%s'!" % (response.text)) # debug print
+print ("Activity Detected!")    # for demonstration
+print ("Executing...")    #for demonstration
 
 # log flag state
 # print ("Flag set to '%s' at: %s" % (response, datetime.datetime.now()), file=open("zealotlog.txt", "a"))
