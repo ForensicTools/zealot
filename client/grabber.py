@@ -51,6 +51,6 @@ with zipfile.ZipFile('changed.zip', 'w') as zipChanged:
         zipChanged.write(f)
 
 # send zip files to server
-#zipFile = {'file': open(path + '/changed.zip', 'rb')} # MAY NEED ADJUSTING
-#send = requests.post('http://api.zealot/<endpoint_for_receipt', files=zipFile)
+zipFile = {'file': open(path + '/changed.zip', 'rb')} # MAY NEED ADJUSTING
+send = requests.post('http://api.zealot/store/', files=zipFile)
 #send.text
