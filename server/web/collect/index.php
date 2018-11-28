@@ -7,6 +7,6 @@ if($mysqli->connect_error) {
     exit;
 }
 
-echo "WAIT";
+echo "RUN";
 $mysqli->close();
 ?>

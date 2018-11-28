@@ -66,7 +66,8 @@ mysql -u root zealot < ./install/zealot.sql
 
 echo "ZEALOT: Running scripts to prepare system..."
 php ./tools/update-hosts.php
-# needs to grab database details and create config scripts
+mkdir /var/zealot
+chmod 777 -Rv /var/zealot
 
 echo "ZEALOT: Populating web directory..."
 rm -r /var/www/html/*
