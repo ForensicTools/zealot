@@ -27,7 +27,7 @@ while($getLive = mysqli_fetch_assoc($dbLive)) {
     $liveSum = $liveSum + $getLive["Count"];
 }
 
-if($liveSum > 1) { // must have adequate sample size to run analysis
+if($liveSum > 1000) { // must have adequate sample size to run analysis
     $dbMeta = $mysqli->query("SELECT * FROM `meta_stats`");
     $metaData = [];
     $metaSum = 0;
