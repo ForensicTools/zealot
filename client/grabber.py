@@ -7,8 +7,8 @@ import datetime
 import requests
  
 # get flag status (WAIT/RUN)
-# response = requests.get('http://api.zealot/<endpoint_for_flag>/')
-response = "WAIT" # WILL NOT BE PRESENT
+response = requests.get('http://api.zealot/collect/')
+# response = "WAIT" # DEBUG
 
 changedFiles = [] # list of file pathes changed in last x minutes
 path = os.path.dirname(os.path.realpath(__file__)) # get current path
@@ -20,8 +20,8 @@ while response != "RUN":
     # print ("Flag is set to '%s' at: %s" % (response, datetime.datetime.now()), file=open("zealotlog.txt", "a"))
 
     time.sleep(5)   # wait x seconds
-    # response = requests.get('http://api.zealot/<endpoint_for_flag>/') # query flag, update value
-    response = "RUN"
+    response = requests.get('http://api.zealot/collect/') # query flag, update value
+    # response = "RUN" # DEBUG
 
 print ("Flag is set to '%s'" % (response)) # debug print
 
@@ -51,5 +51,5 @@ with zipfile.ZipFile('changed.zip', 'w') as zipChanged:
 
 # send zip files to server
 #zipFile = {'file': open(path + '/changed.zip', 'rb')}
-#send = requests.post('http://api.zeal/<endpoint_for_receipt', files=zipFile)
+#send = requests.post('http://api.zealot/<endpoint_for_receipt', files=zipFile)
 #send.text
