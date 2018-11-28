@@ -79,4 +79,4 @@ crontab -r
 (crontab -u root -l ; echo "5 2 * * * bash /root/zealot/server/tools/update-geoip.sh > /dev/null 2>&1 &") | crontab -u root -
 
 echo "ZEALOT: Setup finished. Rebooting for sanity."
-#reboot
+reboot

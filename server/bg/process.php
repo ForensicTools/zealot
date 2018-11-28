@@ -20,7 +20,7 @@ if(filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) || filter_var($i
         $configDbPass = trim(file_get_contents("/etc/zealot/sql"));
         $mysqli = new mysqli("localhost", "zealot", $configDbPass, "zealot");
 
-        $mysqli->query("INSERT INTO `meta_stats` (`CountryISO`, `Count`)
+        $mysqli->query("INSERT INTO `live_stats` (`CountryISO`, `Count`)
                         VALUES ('" . $countryISO . "', 1)
                         ON DUPLICATE KEY UPDATE `Count` = `Count` + 1");
 
